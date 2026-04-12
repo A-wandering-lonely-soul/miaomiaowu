@@ -1,0 +1,67 @@
+/* 与 src/constants/zIndex.ts 保持一致 */
+/* 盖过侧栏抽屉 3000：Message / MessageBox */
+.el-message {
+  z-index: 3180 !important;
+}
+
+.el-overlay:has(.el-message-box) {
+  z-index: 3150 !important;
+}
+
+/* Dialog / 底部 Drawer 遮罩抬到侧栏之上 */
+.el-overlay:has(.el-dialog),
+.el-overlay:has(.el-drawer) {
+  z-index: 3100 !important;
+}
+
+/* 侧栏「更多」菜单 Popover */
+.chat-toolbar-more-popper.el-popper {
+  z-index: 3050 !important;
+}
+
+/* 移动端通知：不占满屏 */
+.chat-notify--mobile.el-notification {
+  width: min(calc(100vw - 24px), 340px) !important;
+  max-width: min(calc(100vw - 24px), 340px) !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .chat-notify--mobile.el-notification {
+    right: 12px !important;
+    left: auto !important;
+    margin-left: 0 !important;
+  }
+
+  .chat-notify--mobile.el-notification.el-notification--top-right {
+    top: max(12px, env(safe-area-inset-top, 12px)) !important;
+  }
+
+  .chat-msgbox-mobile {
+    width: min(calc(100vw - 32px), 400px) !important;
+    max-width: min(calc(100vw - 32px), 400px) !important;
+  }
+}
+
+/* 底部表单抽屉 */
+.form-bottom-sheet.el-drawer.btt {
+  border-radius: 12px 12px 0 0;
+}
+
+.form-bottom-sheet .el-drawer__body {
+  padding: 16px 16px max(16px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+}
+
+.form-bottom-sheet .sheet-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* 嵌套在其它 Drawer 内的底部选择器遮罩 */
+.el-overlay:has(.mobile-bottom-select-drawer) {
+  z-index: 3120 !important;
+}
