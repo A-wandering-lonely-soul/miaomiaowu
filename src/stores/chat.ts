@@ -194,6 +194,9 @@ export const useChatStore = defineStore('chat', () => {
         })
         client.subscribe('/user/queue/robot', (message: IMessage) => {
           const receiveMsg = JSON.parse(message.body) as Record<string, unknown>
+          if (receiveMsg.notice) {
+            chatNotify({ type: 'warning', title: '提示', message: String(receiveMsg.notice) })
+          }
           receiveMsg.notSelf = true
           receiveMsg.to = ROBOT_WIRE_USERNAME
           receiveMsg.messageTypeId = 1

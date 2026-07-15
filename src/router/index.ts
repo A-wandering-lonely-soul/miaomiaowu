@@ -9,6 +9,7 @@ import UserInfo from '@/views/admin/UserInfo.vue'
 import GroupChatRecord from '@/views/admin/GroupChatRecord.vue'
 import PrivateChatRecord from '@/views/admin/PrivateChatRecord.vue'
 import KnowledgeBase from '@/views/admin/KnowledgeBase.vue'
+import ImageKnowledgeBase from '@/views/admin/ImageKnowledgeBase.vue'
 import SystemPrompt from '@/views/admin/SystemPrompt.vue'
 import FeedbackManage from '@/views/admin/FeedbackManage.vue'
 import UserReportManage from '@/views/admin/UserReportManage.vue'
@@ -33,6 +34,7 @@ const router = createRouter({
         { path: 'groupChatRecord', name: 'GroupChatRecord', component: GroupChatRecord },
         { path: 'privateChatRecord', name: 'PrivateChatRecord', component: PrivateChatRecord },
         { path: 'knowledgebase', name: 'KnowledgeBase', component: KnowledgeBase },
+        { path: 'imageknowledgebase', name: 'ImageKnowledgeBase', component: ImageKnowledgeBase },
         { path: 'systemprompt', name: 'SystemPrompt', component: SystemPrompt },
         { path: 'aicontext', name: 'AiContextManage', component: AiContextManage },
         { path: 'admin/feedback-manage', name: 'FeedbackManage', component: FeedbackManage },

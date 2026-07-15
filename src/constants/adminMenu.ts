@@ -23,6 +23,7 @@ export const ADMIN_MENUS: AdminMenuItem[] = [
     icon: 'fa fa-database',
     children: [
       { path: '/home/knowledgebase', title: '知识库管理' },
+      { path: '/home/imageknowledgebase', title: '图片知识库' },
       { path: '/home/systemprompt', title: '系统提示词' },
       { path: '/home/aicontext', title: 'AI上下文管理' },
     ],

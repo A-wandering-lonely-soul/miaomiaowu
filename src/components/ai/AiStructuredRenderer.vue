@@ -92,6 +92,14 @@ function renderMd(text: string): string {
       font-weight: 700;
     }
     :deep(a) { color: #1677ff; }
+    :deep(img) {
+      max-width: 100%;
+      max-height: 320px;
+      border-radius: 8px;
+      margin-top: 6px;
+      display: block;
+      object-fit: contain;
+    }
   }
 }
 </style>
