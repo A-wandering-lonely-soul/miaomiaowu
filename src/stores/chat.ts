@@ -10,6 +10,7 @@ import {
   ROBOT_WIRE_USERNAME,
   normalizeWirePeer,
 } from '@/constants/session'
+import { useWebRtcStore, type WebRtcSignal } from '@/stores/webrtc'
 
 export interface ChatUser {
   id: number
@@ -233,6 +234,15 @@ export const useChatStore = defineStore('chat', () => {
             to: receiveMsg.from,
             notSelf: true,
           })
+        })
+        // 1v1 WebRTC 信令
+        client.subscribe('/user/queue/webrtc', (message: IMessage) => {
+          try {
+            const signal = JSON.parse(message.body) as WebRtcSignal
+            useWebRtcStore().onSignal(signal)
+          } catch (e) {
+            console.warn('WebRTC signal parse error', e)
+          }
         })
       },
       onStompError: (frame) => {

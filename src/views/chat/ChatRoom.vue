@@ -34,6 +34,7 @@
         <ChatUserText :is-mobile="isMobile" />
       </div>
     </div>
+    <VideoCallOverlay />
   </div>
 </template>
 
@@ -48,6 +49,7 @@ import ChatMessage from '@/components/chat/ChatMessage.vue'
 import ChatUserText from '@/components/chat/ChatUserText.vue'
 import ChatCard from '@/components/chat/ChatCard.vue'
 import ChatTitle from '@/components/chat/ChatTitle.vue'
+import VideoCallOverlay from '@/components/chat/VideoCallOverlay.vue'
 
 const chat = useChatStore()
 const auth = useAuthStore()

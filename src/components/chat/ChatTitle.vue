@@ -6,6 +6,12 @@
       </el-button>
       <span class="title-name">{{ chat.currentSession?.nickname || '' }}</span>
     </div>
+    <div class="title-right">
+      <el-tooltip v-if="canVideoCall" content="视频通话" placement="bottom" :disabled="isMobile">
+        <el-button class="call-btn" size="small" circle :disabled="webrtc.inCall" @click="startVideoCall">
+          <span class="fa fa-video-camera"></span>
+        </el-button>
+      </el-tooltip>
     <!-- 移动端：下拉改为底部抽屉，避免被遮挡或层级异常 -->
     <template v-if="isMobile">
       <el-button class="more-btn" size="small" circle @click="moreMenuOpen = true">
@@ -41,19 +47,34 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useChatStore } from '@/stores/chat'
+import { useWebRtcStore } from '@/stores/webrtc'
+import { SESSION_GROUP, SESSION_ROBOT } from '@/constants/session'
 import { Z_FORM_SHEET } from '@/constants/zIndex'
 
 withDefaults(defineProps<{ isMobile?: boolean }>(), { isMobile: false })
 defineEmits<{ openDrawer: [] }>()
 
 const chat = useChatStore()
+const webrtc = useWebRtcStore()
 const moreMenuOpen = ref(false)
+
+const canVideoCall = computed(() => {
+  const u = chat.currentSession?.username
+  return !!u && u !== SESSION_GROUP && u !== SESSION_ROBOT
+})
+
+function startVideoCall() {
+  const sess = chat.currentSession
+  if (!sess?.username) return
+  webrtc.startCall(sess.username, sess.nickname || sess.username)
+}
 
 function onCmd(cmd: string) {
   if (cmd === 'fullscreen') {
@@ -96,9 +117,19 @@ function runCmd(cmd: string) {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.title-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.call-btn,
 .more-btn {
   border: none;
   background: transparent;
+}
+.call-btn {
+  color: #2563eb;
 }
 .chat-title.is-dark {
   background: #2a2a2a;
@@ -109,6 +140,9 @@ function runCmd(cmd: string) {
   .menu-btn,
   .more-btn {
     color: #ccc;
+  }
+  .call-btn {
+    color: #60a5fa;
   }
 }
 .chat-title.is-mobile {
@@ -123,7 +157,8 @@ function runCmd(cmd: string) {
     margin: -4px 0 -4px -4px;
     touch-action: manipulation;
   }
-  .more-btn {
+  .more-btn,
+  .call-btn {
     min-width: 44px;
     min-height: 44px;
     touch-action: manipulation;
